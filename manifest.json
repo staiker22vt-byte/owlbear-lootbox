@@ -4,8 +4,7 @@
   "manifest_version": 1,
   "action": {
     "title": "Lootbox",
-    "icon": "icon.png",
-    "popover": "/index.html",
+    "popover": "index.html",
     "height": 600,
     "width": 800
   }
