@@ -2,7 +2,6 @@
   "name": "Lootbox Rodeo",
   "version": "1.0.0",
   "manifest_version": 1,
-  "scopes": ["ROOM"],
   "action": {
     "title": "Lootbox",
     "icon": "icon.png",
