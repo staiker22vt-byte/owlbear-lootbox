@@ -1,0 +1,12 @@
+json{
+  "name": "Lootbox Rodeo D&D",
+  "version": "1.0.0",
+  "manifest_version": 1,
+  "tags": ["tool"],
+  "action": {
+    "title": "Lootbox",
+    "popover": "index.html",
+    "height": 600,
+    "width": 800
+  }
+}

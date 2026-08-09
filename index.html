@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Lootbox Rodeo D&D</title>
+    <script src="https://unpkg.com"></script>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            background: #1a1a1d;
+            color: #fff;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .main-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-sizing: border-box;
+            border-right: 2px solid #333;
+        }
+        .loot-sidebar {
+            width: 280px;
+            background: #111;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+        }
+        .loot-sidebar h3 {
+            margin-top: 0;
+            border-bottom: 2px solid #ffaa00;
+            padding-bottom: 8px;
+            color: #ffaa00;
+        }
+        .loot-history-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            overflow-y: auto;
+            flex: 1;
+        }
+        .loot-item-row {
+            padding: 10px;
+            margin-bottom: 8px;
+            background: #222;
+            border-left: 4px solid #ccc;
+            border-radius: 4px;
+            font-size: 13px;
+            animation: fadeIn 0.3s ease;
+        }
+        .dm-panel {
+            display: none;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+            max-width: 400px;
+        }
+        label {
+            font-size: 14px;
+            color: #aaa;
+        }
+        select, button {
+            padding: 12px;
+            background: #2c2c30;
+            color: #fff;
+            border: 1px solid #444;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #ffaa00;
+            color: #000;
+            font-weight: bold;
+        }
+        .player-panel {
+            display: none;
+            width: 100%;
+            text-align: center;
+        }
+        .roulette-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            height: 120px;
+            margin: 20px auto;
+            background: #111;
+            border: 3px solid #333;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .roulette-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: #ffaa00;
+            z-index: 10;
+            box-shadow: 0 0 10px #ffaa00;
+        }
+        .roulette-track {
+            display: flex;
+            position: absolute;
+            left: 0;
+            top: 10px;
+            height: 100px;
+            transition: transform 4s cubic-bezier(0.1, 0.8, 0.1, 1);
+            will-change: transform;
+        }
+        .roulette-item {
+            width: 100px;
+            height: 100px;
+            margin-right: 10px;
+            background: #222;
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: bold;
+            text-align: center;
+            box-sizing: border-box;
+            border: 2px solid #444;
+            padding: 5px;
+            flex-shrink: 0;
+        }
+        .rarity-common { border-color: #888; background: rgba(128,128,128,0.2); color: #ccc; }
+        .rarity-rare { border-color: #0070dd; background: rgba(0,112,221,0.2); color: #0070dd; }
+        .rarity-epic { border-color: #a335ee; background: rgba(163,53,238,0.2); color: #a335ee; }
+        .rarity-legendary { border-color: #ff8000; background: rgba(255,128,0,0.2); color: #ff8000; }
+        .rarity-dnd5e { border-color: #e32929; background: rgba(227,41,41,0.2); color: #f26666; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <div id="dmPanel" class="dm-panel">
+            <h2>Выдать Лутбокс</h2>
+            <label for="playerSelect">Выбрать игрока:</label>
+            <select id="playerSelect"></select>
+            <label for="lootModeSelect">Режим лута:</label>
+            <select id="lootModeSelect">
+                <option value="random_common">Рандом: Обычный сундук</option>
+                <option value="random_epic">Рандом: Эпический сундук</option>
+                <option value="dnd_equipment">D&D 5e: Случайное снаряжение</option>
+                <option value="dnd_magic">D&D 5e: Случайный маг. предмет</option>
+            </select>
+            <button id="sendLootboxBtn">Отправить Лутбокс</button>
+        </div>
+        <div id="playerPanel" class="player-panel">
+            <h2 id="statusMessage">Ожидание сокровищ...</h2>
+            <div class="roulette-wrapper" id="rouletteWrapper" style="display: none;">
+                <div id="rouletteTrack" class="roulette-track"></div>
+            </div>
+        </div>
+    </div>
+    <div class="loot-sidebar">
+        <h3>Полученный Лут</h3>
+        <ul id="lootHistoryList" class="loot-history-list"></ul>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
