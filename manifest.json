@@ -6,7 +6,7 @@
   "scopes": ["ROOM"],
   "action": {
     "title": "Lootbox",
-    "icon": "icon.svg",
+    "icon": "icon.png"
     "popover": "index.html",
     "height": 600,
     "width": 800
