@@ -2,7 +2,6 @@
   "name": "Lootbox Rodeo",
   "version": "1.0.0",
   "manifest_version": 1,
-  "tags": ["tool"],
   "scopes": ["ROOM"],
   "action": {
     "title": "Lootbox",
